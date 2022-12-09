@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Spirograph</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+    }
+
+    canvas {
+      border: 1px solid black;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Spirograph</h1>
+  <p>
+    Click the button below to draw a rainbow Spirograph shape:
+  </p>
+  <button onclick="drawSpirograph()">Draw Spirograph</button>
+  <canvas id="spirograph" width="500" height="500"></canvas>
+
+  <script>
+    // a function to draw a rainbow Spirograph shape on the canvas
+    function drawSpirograph() {
+      // get a reference to the canvas element
+      const canvas = document.getElementById("spirograph");
+
+      // create a Raphael canvas on the HTML canvas
+      const paper = Raphael(canvas, canvas.width, canvas.height);
+
+      // the colors for the rainbow Spirograph
+      const colors = [
+        "#FF0000", "#FF7F00", "#FFFF00", "#00FF00",
+        "#0000FF", "#4B0082", "#9400D3"
+      ];
+
+      // the center of the Spirograph
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+
+      // the radius of the Spirograph
+      const radius = 200;
+
+      // the number of points on the Spirograph
+      const points = 360;
+
+      // the starting angle of the Spirograph
+      const startAngle = 0;
+
+      // the rotation of the Spirograph
+      const rotation = 0.1;
+
+      // the line width of the Spirograph
+      const lineWidth = 1;
+
+      // create a path string for the Spirograph
+      let pathString = "M";
+      for (let i = 0; i <= points; i++) {
+        // calculate the angle and coordinates of the point
+        const angle = startAngle + i * rotation;
+        const x = centerX + radius * Math.cos(angle);
+        const y = centerY + radius * Math.sin(angle);
+
+        // add the point to the path string
+        pathString += `${x},${y}`;
+      }
+
+      // create a rainbow Spirograph by drawing multiple paths with different colors
+      for (let i = 0; i < colors.length; i++) {
+        paper.path(pathString)
+          .attr({
+            stroke: colors[i],
+            "stroke-width
